@@ -1,0 +1,17 @@
+* {
+    font-family: roboto;
+}
+body {
+    background-color: rgb(215, 240, 218);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#root {
+    margin-top: 20px;
+    padding: 20px;
+    width: 600px;
+    border-radius: 5px;
+    background-color: rgb(193, 218, 196);
+}
+

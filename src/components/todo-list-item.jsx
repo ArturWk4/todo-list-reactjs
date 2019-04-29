@@ -12,14 +12,15 @@ class TodoListItem extends React.Component {
   }
 
   setComplited = () => {
-    this.setState({
-      isComplited: !this.state.isComplited
-    });
+    this.setState(state => ({
+      isComplited: !state.isComplited
+    }));
   };
+  
   setPriority = () => {
-    this.setState({
-      isImportant: !this.state.isImportant
-    });
+    this.setState(state => ({
+      isImportant: !state.isImportant
+    }));
   };
   render() {
     const { isComplited, isImportant } = this.state;

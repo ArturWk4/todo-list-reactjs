@@ -15,13 +15,16 @@ class TodoListItem extends React.Component {
     this.setState(state => ({
       isComplited: !state.isComplited
     }));
+    this.props.onToggleDone();
   };
 
   setPriority = () => {
     this.setState(state => ({
       isImportant: !state.isImportant
     }));
+    this.props.onToggleImportant();
   };
+
   render() {
     const { content, onDeleted } = this.props;
     const { isComplited, isImportant } = this.state;

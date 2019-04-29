@@ -11,7 +11,7 @@ class ItemAddForm extends React.Component {
         />
         <button 
             className="btn btn-outline-secondary col-2"
-            onClick={() => this.props.onItemAdded('hello')}>Add task</button>
+            onClick={() => this.props.onItemAdded('helloContent')}>Add task</button>
       </div>
     );
   }

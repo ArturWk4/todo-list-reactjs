@@ -1,4 +1,8 @@
 .done {
-    text-decoration: line-through;
-    opacity: 0.2;
+  text-decoration: line-through;
+  opacity: 0.2;
+}
+.important {
+  color: tomato;
+  font-weight: 900;
 }

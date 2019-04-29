@@ -16,13 +16,14 @@ class TodoListItem extends React.Component {
       isComplited: !state.isComplited
     }));
   };
-  
+
   setPriority = () => {
     this.setState(state => ({
       isImportant: !state.isImportant
     }));
   };
   render() {
+    const { content, onDeleted } = this.props;
     const { isComplited, isImportant } = this.state;
     let itemClasses = ["row", "justify-content-between", "align-items-center"];
     let contentClasses = ["col", "col-sm-10"];
@@ -47,7 +48,7 @@ class TodoListItem extends React.Component {
                 : contentClasses.join(" ")
             }
           >
-            {this.props.content}
+            {content}
           </span>
         </div>
 
@@ -58,7 +59,7 @@ class TodoListItem extends React.Component {
           >
             <i className="fa fa-exclamation" />
           </button>
-          <button type="button" className="btn btn-outline-danger">
+          <button className="btn btn-outline-danger" onClick={onDeleted}>
             <i className="fa fa-trash" />
           </button>
         </div>

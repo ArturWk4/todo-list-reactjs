@@ -12,8 +12,7 @@ export default class App extends React.Component {
     todoData: [
       { content: "Drink coffe", id: this.count++ },
       { content: "Learn  react", id: this.count++ },
-      { content: "Walk with dog", id: this.count++ },
-      { content: "do something", id: this.count++ }
+      { content: "Walk with dog", id: this.count++ }
     ]
   };
 

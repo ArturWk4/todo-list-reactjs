@@ -45,37 +45,41 @@ export default class App extends React.Component {
       };
     });
   };
-
+  toggleProperty(data, id, propName) {
+      const index = data.findIndex(item => item.id === id);
+      const oldItem = data[index];
+      const newItem = {...oldItem, [propName]: !oldItem[propName]};
+      return [        
+        ...data.slice(0, index),
+        newItem,
+        ...data.slice(index + 1)
+      ];
+  }
   onToggleImportant = id => {
-    console.log("toggle important " + id);
+    this.setState(({todoData}) => {
+      return {
+        todoData: this.toggleProperty(todoData, id, 'important')
+      }
+    })
   };
 
   onToggleDone = id => {
     this.setState(({todoData}) => {
-      const index = todoData.findIndex(item => item.id === id);
-      const oldItem = todoData[index];
-      const newItem = {...oldItem, done: !oldItem.done};
-      const newData = [        
-        ...todoData.slice(0, index),
-        newItem,
-        ...todoData.slice(index + 1)
-      ];
       return {
-        todoData: newData
+        todoData: this.toggleProperty(todoData, id, 'done')
       }
     })
-    console.log("toggle done " + id);
   };
 
   render() {
     const {todoData} = this.state;
     const countCompleted = todoData.filter(item => item.done).length;
-    const todoCount = todoData.length - countCompleted;
+
     return (
       <div className="container">
         <AppHeader 
           countCompleted={countCompleted} 
-          todoCount={todoCount}
+          todoCount={todoData.length - countCompleted}
         />
         <SearchPanel />
         <TodoList

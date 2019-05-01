@@ -6,7 +6,7 @@ class TodoListItem extends React.Component {
     super(props);
 
     this.state = {
-      isComplited: false,
+      isComplited: this.props.done,
       isImportant: this.props.important
     };
   }

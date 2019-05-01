@@ -7,16 +7,6 @@ import ItemAddForm from "./components/item-add-form";
 
 export default class App extends React.Component {
   count = 0;
-  countCompleted = 0;
-  createToDoItem = text => {
-    return {
-      content: text,
-      important: false,
-      done: false,
-      id: this.count++
-    };
-  };
-
   state = {
     todoData: [
       this.createToDoItem('Drink coffe'),
@@ -25,6 +15,15 @@ export default class App extends React.Component {
     ]
   };
 
+  createToDoItem(text) {
+    return {
+      content: text,
+      important: false,
+      done: false,
+      id: this.count++
+    };
+  };
+  
   deleteItem = id => {
     this.setState(({ todoData }) => {
       const index = todoData.findIndex(i => i.id === id);
@@ -52,16 +51,35 @@ export default class App extends React.Component {
   };
 
   onToggleDone = id => {
+    this.setState(({todoData}) => {
+      const index = todoData.findIndex(item => item.id === id);
+      const oldItem = todoData[index];
+      const newItem = {...oldItem, done: !oldItem.done};
+      const newData = [        
+        ...todoData.slice(0, index),
+        newItem,
+        ...todoData.slice(index + 1)
+      ];
+      return {
+        todoData: newData
+      }
+    })
     console.log("toggle done " + id);
   };
 
   render() {
+    const {todoData} = this.state;
+    const countCompleted = todoData.filter(item => item.done).length;
+    const todoCount = todoData.length - countCompleted;
     return (
       <div className="container">
-        <AppHeader />
+        <AppHeader 
+          countCompleted={countCompleted} 
+          todoCount={todoCount}
+        />
         <SearchPanel />
         <TodoList
-          todos={this.state.todoData}
+          todos={todoData}
           onDeleted={id => this.deleteItem(id)}
           onToggleImportant={this.onToggleImportant}
           onToggleDone={this.onToggleDone}

@@ -8,19 +8,21 @@ import ItemAddForm from "./components/item-add-form";
 export default class App extends React.Component {
   count = 0;
   countCompleted = 0;
-  state = {
-    todoData: [
-      { content: "Drink coffe", id: this.count++ },
-      { content: "Learn  react", id: this.count++ },
-      { content: "Walk with dog", id: this.count++ }
-    ]
-  };
-
   createToDoItem = text => {
     return {
       content: text,
+      important: false,
+      done: false,
       id: this.count++
     };
+  };
+
+  state = {
+    todoData: [
+      this.createToDoItem('Drink coffe'),
+      this.createToDoItem('Learn Reack'),
+      this.createToDoItem('To become success')
+    ]
   };
 
   deleteItem = id => {

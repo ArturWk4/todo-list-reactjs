@@ -14,15 +14,12 @@ class ItemAddForm extends React.Component {
     event.preventDefault();
     this.props.onItemAdded(this.state.taskTitle);
     this.setState({
-      taskTitle: ''
-    })
+      taskTitle: ""
+    });
   };
   render() {
     return (
-      <form 
-        className="row mt-4"
-        onSubmit={this.onSubmit}
-        >
+      <form className="row mt-4" onSubmit={this.onSubmit}>
         <input
           type="text"
           placeholder="Task title"

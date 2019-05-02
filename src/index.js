@@ -9,10 +9,11 @@ export default class App extends React.Component {
   count = 0;
   state = {
     todoData: [
-      this.createToDoItem('Drink coffe'),
-      this.createToDoItem('Learn Reack'),
-      this.createToDoItem('To become success')
-    ]
+      this.createToDoItem("Drink coffe"),
+      this.createToDoItem("Learn Reack"),
+      this.createToDoItem("To become success")
+    ],
+    term: ""
   };
 
   createToDoItem(text) {
@@ -22,8 +23,8 @@ export default class App extends React.Component {
       done: false,
       id: this.count++
     };
-  };
-  
+  }
+
   deleteItem = id => {
     this.setState(({ todoData }) => {
       const index = todoData.findIndex(i => i.id === id);
@@ -46,44 +47,51 @@ export default class App extends React.Component {
     });
   };
   toggleProperty(data, id, propName) {
-      const index = data.findIndex(item => item.id === id);
-      const oldItem = data[index];
-      const newItem = {...oldItem, [propName]: !oldItem[propName]};
-      return [        
-        ...data.slice(0, index),
-        newItem,
-        ...data.slice(index + 1)
-      ];
+    const index = data.findIndex(item => item.id === id);
+    const oldItem = data[index];
+    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
+    return [...data.slice(0, index), newItem, ...data.slice(index + 1)];
   }
   onToggleImportant = id => {
-    this.setState(({todoData}) => {
+    this.setState(({ todoData }) => {
       return {
-        todoData: this.toggleProperty(todoData, id, 'important')
-      }
-    })
+        todoData: this.toggleProperty(todoData, id, "important")
+      };
+    });
   };
 
   onToggleDone = id => {
-    this.setState(({todoData}) => {
+    this.setState(({ todoData }) => {
       return {
-        todoData: this.toggleProperty(todoData, id, 'done')
-      }
-    })
+        todoData: this.toggleProperty(todoData, id, "done")
+      };
+    });
   };
 
+  search(items, term) {
+    if (term.length === 0) {
+      return items;
+    }
+    return items.filter(
+      item => item.content.toLowerCase().indexOf(term.toLowerCase()) > -1
+    );
+  }
+  onSearch = term => {
+    this.setState({ term });
+  };
   render() {
-    const {todoData} = this.state;
+    const { todoData, term } = this.state;
     const countCompleted = todoData.filter(item => item.done).length;
-
+    const visiableItems = this.search(todoData, term);
     return (
       <div className="container">
-        <AppHeader 
-          countCompleted={countCompleted} 
+        <AppHeader
+          countCompleted={countCompleted}
           todoCount={todoData.length - countCompleted}
         />
-        <SearchPanel />
+        <SearchPanel onSearch={this.onSearch} />
         <TodoList
-          todos={todoData}
+          todos={visiableItems}
           onDeleted={id => this.deleteItem(id)}
           onToggleImportant={this.onToggleImportant}
           onToggleDone={this.onToggleDone}

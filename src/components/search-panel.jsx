@@ -20,9 +20,10 @@ class SearchPanel extends React.Component {
           value={this.state.term}
           onChange={this.onSearch}
         />
-        <ItemFilter 
+        <ItemFilter
           filter={this.props.filter}
-          onFilterChange={this.props.onFilterChange}/>
+          onFilterChange={this.props.onFilterChange}
+        />
       </div>
     );
   }

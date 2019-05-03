@@ -101,8 +101,8 @@ export default class App extends React.Component {
   }
 
   onFilterChange = filter => {
-    this.setState({filter});
-  }
+    this.setState({ filter });
+  };
 
   render() {
     const { todoData, term, filter } = this.state;
@@ -114,10 +114,11 @@ export default class App extends React.Component {
           countCompleted={countCompleted}
           todoCount={todoData.length - countCompleted}
         />
-        <SearchPanel 
-          onSearch={this.onSearch} 
+        <SearchPanel
+          onSearch={this.onSearch}
           filter={filter}
-          onFilterChange={this.onFilterChange}/>
+          onFilterChange={this.onFilterChange}
+        />
         <TodoList
           todos={visiableItems}
           onDeleted={id => this.deleteItem(id)}

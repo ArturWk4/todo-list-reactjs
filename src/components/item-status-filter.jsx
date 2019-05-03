@@ -8,16 +8,17 @@ class ItemFilter extends React.Component {
   ];
 
   render() {
-    const { filter, onFilterChange} = this.props;
+    const { filter, onFilterChange } = this.props;
 
     const buttons = this.buttons.map(({ name, label }) => {
       const isActive = filter === name;
       const _class = isActive ? "btn-secondary" : "btn-outline-secondary";
       return (
-        <button 
-          key={name} 
+        <button
+          key={name}
           className={`btn ${_class}`}
-          onClick={() => onFilterChange(name)}>
+          onClick={() => onFilterChange(name)}
+        >
           {label}
         </button>
       );

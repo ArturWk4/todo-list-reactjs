@@ -15,12 +15,14 @@ class SearchPanel extends React.Component {
       <div className="row mb-4">
         <input
           type="text"
-          placeholder="search"
-          className="col col-sm-8 search-panel"
+          placeholder="Search"
+          className="col col-sm-8"
           value={this.state.term}
           onChange={this.onSearch}
         />
-        <ItemFilter />
+        <ItemFilter 
+          filter={this.props.filter}
+          onFilterChange={this.props.onFilterChange}/>
       </div>
     );
   }

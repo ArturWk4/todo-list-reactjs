@@ -13,7 +13,8 @@ export default class App extends React.Component {
       this.createToDoItem("Learn Reack"),
       this.createToDoItem("To become success")
     ],
-    term: ""
+    term: "",
+    filter: "all"
   };
 
   createToDoItem(text) {
@@ -46,12 +47,14 @@ export default class App extends React.Component {
       };
     });
   };
+
   toggleProperty(data, id, propName) {
     const index = data.findIndex(item => item.id === id);
     const oldItem = data[index];
     const newItem = { ...oldItem, [propName]: !oldItem[propName] };
     return [...data.slice(0, index), newItem, ...data.slice(index + 1)];
   }
+
   onToggleImportant = id => {
     this.setState(({ todoData }) => {
       return {
@@ -76,20 +79,45 @@ export default class App extends React.Component {
       item => item.content.toLowerCase().indexOf(term.toLowerCase()) > -1
     );
   }
+
   onSearch = term => {
     this.setState({ term });
   };
+
+  filterItems(items, filter) {
+    switch (filter) {
+      case "all":
+        return items;
+
+      case "active":
+        return items.filter(item => !item.done);
+
+      case "done":
+        return items.filter(item => item.done);
+
+      default:
+        return items;
+    }
+  }
+
+  onFilterChange = filter => {
+    this.setState({filter});
+  }
+
   render() {
-    const { todoData, term } = this.state;
+    const { todoData, term, filter } = this.state;
     const countCompleted = todoData.filter(item => item.done).length;
-    const visiableItems = this.search(todoData, term);
+    const visiableItems = this.filterItems(this.search(todoData, term), filter);
     return (
       <div className="container">
         <AppHeader
           countCompleted={countCompleted}
           todoCount={todoData.length - countCompleted}
         />
-        <SearchPanel onSearch={this.onSearch} />
+        <SearchPanel 
+          onSearch={this.onSearch} 
+          filter={filter}
+          onFilterChange={this.onFilterChange}/>
         <TodoList
           todos={visiableItems}
           onDeleted={id => this.deleteItem(id)}

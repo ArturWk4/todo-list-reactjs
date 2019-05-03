@@ -7,10 +7,10 @@ class AppHeader extends React.Component {
         <h1 className="col col-9">Todo list</h1>
         <div className="col col-3 d-flex flex-column align-items-end">
           <p style={{ margin: 0 }}>
-            {this.props.countCompleted} <i className="far fa-list-alt" />
+            {this.props.todoCount} <i className="far fa-list-alt" />
           </p>
           <p>
-            {this.props.todoCount} <i className="far fa-check-square" />
+            {this.props.countCompleted} <i className="far fa-check-square" />
           </p>
         </div>
       </div>
